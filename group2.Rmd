@@ -30,6 +30,8 @@ not?
 
 # Tidy data {#sec:tidy}
 
+According to the dataset6 with 2847 films, we choose the variables of year, length, budget, votes and genre as explanatory variables to analyse how these variables affect ratings of films.
+
 Create column with "good" for ratings > 7 and "bad" for ratings <= 7 
 
 ```{r import and wrangle data}
