@@ -19,6 +19,8 @@ library(skimr)
 library(GGally)
 library(janitor)
 library(sjPlot)
+library(jtools)
+library(knitr)
 ```
 
 # Question {#sec:que}
@@ -36,7 +38,7 @@ Create column with "good" for ratings > 7 and "bad" for ratings <= 7
 
 ```{r import and wrangle data}
 # import data
-films <- read.csv("dataset6.csv")
+films <- read.csv("C:/Users/danci/Desktop/Uni stuff/Term 2/5085 Data Analysis Skills/Group presentation project/Datasets-20220307/dataset6.csv")
 # create column with "good" for ratings > 7 and "bad" for ratings <= 7 
 films <- films %>% 
   mutate(rank = cut(rating,breaks=c(0,7,10),labels=c("bad","good")))
@@ -71,28 +73,34 @@ films %>%
 
 # look at rank with year (nothing super obvious)
 ggplot(films,aes(y=year,fill=rank))+
-  geom_boxplot()
+  geom_boxplot()+
+  labs(title="Year")
 # look at rank with length (lots of outliers for bad and some overlap of IQR, but looks like shorter may be better)
 ggplot(films,aes(y=length,fill=rank))+
-  geom_boxplot()
+  geom_boxplot()+
+  labs(title="Film length")
 # look at rank with budget (overlap of IQR, but bigger budget seems to be good)
 ggplot(films,aes(y=budget,fill=rank))+
-  geom_boxplot()
+  geom_boxplot()+
+  labs(title="Budget")
 # look at rank with votes (lots of outliers- would need to remove to see how this affects the response)
 ggplot(films,aes(y=votes,fill=rank))+
-  geom_boxplot()
+  geom_boxplot()+
+  labs(title="Number of votes")
 # look at rank with genre (seems like animation, comedy, documentary and short films are more likely to be good, whereas action, drama and romance more likely to be bad)
 films  %>% 
   tabyl(genre, rank) %>% 
   adorn_percentages() %>% 
   adorn_pct_formatting() %>% 
-  adorn_ns() # To show original counts 
+  adorn_ns() %>%  # To show original counts
+  knitr::kable()
 ggplot(films, aes(x= rank,  y = ..prop.., group=genre, fill=genre)) + 
     geom_bar(position="dodge", stat="count") +
-    labs(y = "Proportion")
+    labs(y = "Proportion",title="Proportions of good and bad films by genre")
 # not a usual plot but interesting to see the categories against each other a little easier
 ggplot(films,aes(x=genre,y=rank,col=rank))+
-  geom_jitter()
+  geom_jitter()+
+  labs(title="Number of good and bad films by genre")
 ```
 
 
@@ -105,8 +113,12 @@ head(films)
 ##fit model with all variables
 mod.films<-glm(rank~year+length+budget+votes+genre,data=films, family = binomial(link = "logit"))
 
-mod.films %>%
-  summary()
+summary <- mod.films %>%
+  summ() 
+
+summary$coeftable %>% 
+  kable(digits = 2,format = "html", table.attr = "style='width:60%;'")
+
 ```
 
 stepwise select model
@@ -114,7 +126,8 @@ stepwise select model
 ```{r}
 ##stepwise select model
 mod.films %>%
-  step()
+  step() 
+
 
 ```
 
@@ -122,11 +135,13 @@ remove variable "votes" and fit the model again
 
 ```{r}
 ##because the p-value of votes is not significant, so remove votes
-mod.films2<-glm(rank~year+length+budget+genre,data=films, family = binomial(link = "logit"))
+mod.films2 <-glm(rank~year+length+budget+genre,data=films, family = binomial(link = "logit"))
 
-mod.films2 %>%
-  summary()
-
+summary <-mod.films2 %>%
+  summ() 
+  
+summary$coeftable %>% 
+  kable(digits = 2,format = "html", table.attr = "style='width:60%;'")
 ```
 
 calculate the odds scale the regression coefficients
