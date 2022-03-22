@@ -175,7 +175,160 @@ films3 <- films3 %>%
 glimpse(films3)
 ```
 
+calculate the confidence interval of log-odds and odds 
 
+```{r}
+##calculate the confidence interval 
+logodds <- mod.films2 %>%
+           summary() %>%
+           coef()
+
+## the CI for year
+# for logodds
+year.logodds.lower <- logodds["year",  "Estimate"] - 
+                      1.96 * logodds["year", "Std. Error"]
+
+year.logodds.upper <- logodds["year", "Estimate"] + 
+                      1.96 * logodds["year", "Std. Error"]
+year.CI<-c(year.logodds.lower,year.logodds.upper)
+# for odds
+year.odds.lower <- exp(year.logodds.lower)
+year.odds.upper <- exp(year.logodds.upper)
+year.odd.CI<-c(year.odds.lower,year.odds.upper)
+
+
+
+## the CI for length
+# for logodds
+length.logodds.lower <- logodds["length",  "Estimate"] - 
+                      1.96 * logodds["length", "Std. Error"]
+
+length.logodds.upper <- logodds["length", "Estimate"] + 
+                      1.96 * logodds["length", "Std. Error"]
+length.CI<-c(length.logodds.lower,length.logodds.upper)
+# for odds
+length.odds.lower <- exp(length.logodds.lower)
+length.odds.upper <- exp(length.logodds.upper)
+length.odd.CI<-c(length.odds.lower,length.odds.upper)
+
+
+
+## the CI for budget
+# for logodds
+budget.logodds.lower <- logodds["budget",  "Estimate"] - 
+                      1.96 * logodds["budget", "Std. Error"]
+
+budget.logodds.upper <- logodds["budget", "Estimate"] + 
+                      1.96 * logodds["budget", "Std. Error"]
+budget.CI<-c(budget.logodds.lower,budget.logodds.upper)
+# for odds
+budget.odds.lower <- exp(budget.logodds.lower)
+budget.odds.upper <- exp(budget.logodds.upper)
+budget.odd.CI<-c(budget.odds.lower,budget.odds.upper)
+
+
+
+## the CI for genreAnimation 
+# for logodds
+genreAnimation.logodds.lower <- logodds["genreAnimation",  "Estimate"] - 
+                      1.96 * logodds["genreAnimation", "Std. Error"]
+
+genreAnimation.logodds.upper <- logodds["genreAnimation", "Estimate"] + 
+                      1.96 * logodds["genreAnimation", "Std. Error"]
+genreAnimation.CI<-c(genreAnimation.logodds.lower,genreAnimation.logodds.upper)
+# for odds
+genreAnimation.odds.lower <- exp(genreAnimation.logodds.lower)
+genreAnimation.odds.upper <- exp(genreAnimation.logodds.upper)
+genreAnimation.odd.CI<-c(genreAnimation.odds.lower,genreAnimation.odds.upper)
+
+
+
+## the CI for genreComedy 
+# for logodds
+genreComedy.logodds.lower <- logodds["genreComedy",  "Estimate"] - 
+                      1.96 * logodds["genreComedy", "Std. Error"]
+
+genreComedy.logodds.upper <- logodds["genreComedy", "Estimate"] + 
+                      1.96 * logodds["genreComedy", "Std. Error"]
+genreComedy.CI<-c(genreComedy.logodds.lower,genreComedy.logodds.upper)
+# for odds
+genreComedy.odds.lower <- exp(genreComedy.logodds.lower)
+genreComedy.odds.upper <- exp(genreComedy.logodds.upper)
+genreComedy.odd.CI<-c(genreComedy.odds.lower,genreComedy.odds.upper)
+
+
+
+## the CI for genreDocumentary 
+# for logodds
+genreDocumentary.logodds.lower <- logodds["genreDocumentary",  "Estimate"] - 
+                      1.96 * logodds["genreDocumentary", "Std. Error"]
+
+genreDocumentary.logodds.upper <- logodds["genreDocumentary", "Estimate"] + 
+                      1.96 * logodds["genreDocumentary", "Std. Error"]
+genreDocumentary.CI<-c(genreDocumentary.logodds.lower,genreDocumentary.logodds.upper)
+# for odds
+genreDocumentary.odds.lower <- exp(genreDocumentary.logodds.lower)
+genreDocumentary.odds.upper <- exp(genreDocumentary.logodds.upper)
+genreDocumentary.odd.CI<-c(genreDocumentary.odds.lower,genreDocumentary.odds.upper)
+
+
+
+## the CI for genreDrama 
+# for logodds
+genreDrama.logodds.lower <- logodds["genreDrama",  "Estimate"] - 
+                      1.96 * logodds["genreDrama", "Std. Error"]
+
+genreDrama.logodds.upper <- logodds["genreDrama", "Estimate"] + 
+                      1.96 * logodds["genreDrama", "Std. Error"]
+genreDrama.CI<-c(genreDrama.logodds.lower,genreDrama.logodds.upper)
+# for odds
+genreDrama.odds.lower <- exp(genreDrama.logodds.lower)
+genreDrama.odds.upper <- exp(genreDrama.logodds.upper)
+genreDrama.odd.CI<-c(genreDrama.odds.lower,genreDrama.odds.upper)
+
+
+
+
+## the CI for genreRomance 
+# for logodds
+genreRomance.logodds.lower <- logodds["genreRomance",  "Estimate"] - 
+                      1.96 * logodds["genreRomance", "Std. Error"]
+
+genreRomance.logodds.upper <- logodds["genreRomance", "Estimate"] + 
+                      1.96 * logodds["genreRomance", "Std. Error"]
+genreRomance.CI<-c(genreRomance.logodds.lower,genreRomance.logodds.upper)
+# for odds
+genreRomance.odds.lower <- exp(genreRomance.logodds.lower)
+genreRomance.odds.upper <- exp(genreRomance.logodds.upper)
+genreRomance.odd.CI<-c(genreRomance.odds.lower,genreRomance.odds.upper)
+
+
+
+## the CI for genreShort 
+# for logodds
+genreShort.logodds.lower <- logodds["genreShort",  "Estimate"] - 
+                      1.96 * logodds["genreShort", "Std. Error"]
+
+genreShort.logodds.upper <- logodds["genreShort", "Estimate"] + 
+                      1.96 * logodds["genreShort", "Std. Error"]
+genreShort.CI<-c(genreShort.logodds.lower,genreShort.logodds.upper)
+# for odds
+genreShort.odds.lower <- exp(genreShort.logodds.lower)
+genreShort.odds.upper <- exp(genreShort.logodds.upper)
+genreShort.odd.CI<-c(genreShort.odds.lower,genreShort.odds.upper)
+
+
+
+## CI for logodds of variables:
+CI.logodds<-rbind(year.CI,length.CI,budget.CI,genreAnimation.CI,genreComedy.CI,genreDocumentary.CI,genreDrama.CI,genreRomance.CI,genreShort.CI)
+colnames(CI.logodds)<-c("2.5%","97.5%")
+CI.logodds
+
+
+## CI for odds of variables:
+CI.odds<-rbind(year.odd.CI,length.odd.CI,budget.odd.CI,genreAnimation.odd.CI,genreComedy.odd.CI,genreDocumentary.odd.CI, genreDrama.odd.CI, genreRomance.odd.CI ,genreShort.odd.CI)
+colnames(CI.odds)<-c("2.5%","97.5%")
+CI.odds
 
 
 
