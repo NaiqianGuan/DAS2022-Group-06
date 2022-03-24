@@ -331,7 +331,25 @@ colnames(CI.odds)<-c("2.5%","97.5%")
 CI.odds
 
 
+# Assess the Modle  {#sec:est2}
 
+produce the ROC curve and AUC for the model to assess the predictive power of the model
+
+```{r}
+library(ROCR)
+films3$Pred <- predict(mod.films2, films3, type="response")
+score <- prediction(films3$Pred,films3$rank)
+perf <- performance(score,"tpr","fpr")
+auc <- performance(score,"auc")
+perfd <- data.frame(x= perf@x.values[1][[1]], y=perf@y.values[1][[1]])
+roc.films<- ggplot(perfd, aes(x= x, y=y)) + geom_line() +
+      xlab("False positive rate") + ylab("True positive rate") +
+      ggtitle(paste("Area under the curve:", round(auc@y.values[[1]], 3)))
+roc.films
+```
+
+
+The area under the curve is 0.952， which is greater than 0.5. It indicates that thsi is the good performance for the model. However, it may be possible to improve the predictive performance of the model by adding more predictors or even by removing some of the terms currently in the model. In the dataset, we have deleted the variable of votes. However, it might affect the rating in practice. Therefore, we could collect more data of films to identify the relationship between the votes and rating. 
 
 
 
