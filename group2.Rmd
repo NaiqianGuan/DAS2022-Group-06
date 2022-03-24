@@ -332,7 +332,7 @@ roc.films
 ```
 
 
-The area under the curve is 0.952， which is greater than 0.5. It indicates that thsi is the good performance for the model. However, it may be possible to improve the predictive performance of the model by adding more predictors or even by removing some of the terms currently in the model. In the dataset, we have deleted the variable of votes. However, it might affect the rating in practice. Therefore, we could collect more data of films to identify the relationship between the votes and rating. 
+The area under the ROC curve is 0.952， which is greater than 0.5. It indicates that this is the good performance for the model.And it shows that 95.2% of our predictions are right. Also, it may be possible to improve the predictive performance of the model by adding more predictors or even by removing some of the terms currently in the model. In the dataset, we have deleted the variable of votes. However, it might affect the rating in practice. Therefore, we could collect more data of films to identify the relationship between the votes and rating. 
 
 
 
